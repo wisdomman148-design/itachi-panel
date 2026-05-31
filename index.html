@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITACHI Headshot Panel</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#050505;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(255,0,0,.25), transparent 30%),
+    radial-gradient(circle at 90% 80%, rgba(255,0,0,.18), transparent 35%),
+    #050505;
+  z-index:-3;
+}
+
+.particles{
+  position:fixed;
+  inset:0;
+  background-image:radial-gradient(rgba(255,0,0,.45) 1px, transparent 1px);
+  background-size:42px 42px;
+  opacity:.15;
+  animation:move 20s linear infinite;
+  z-index:-2;
+}
+
+@keyframes move{
+  from{background-position:0 0}
+  to{background-position:420px 420px}
+}
+
+nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:18px 24px;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  z-index:1000;
+}
+
+.nav-wrap{
+  max-width:1180px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  color:#ff2525;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.nav-links a{
+  color:#ccc;
+  text-decoration:none;
+  margin-left:18px;
+  font-size:14px;
+}
+
+.hero{
+  min-height:100vh;
+  padding:115px 24px 70px;
+  background:
+    linear-gradient(rgba(0,0,0,.78),rgba(0,0,0,.96)),
+    url("banner.jpg");
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.container{
+  max-width:1180px;
+  width:100%;
+  text-align:center;
+}
+
+.badge{
+  display:inline-block;
+  padding:10px 18px;
+  border:1px solid rgba(255,0,0,.5);
+  border-radius:50px;
+  color:#ff3030;
+  background:rgba(255,0,0,.12);
+  font-weight:900;
+  letter-spacing:2px;
+  margin-bottom:20px;
+}
+
+h1{
+  font-size:clamp(45px,9vw,100px);
+  line-height:.9;
+  text-transform:uppercase;
+  margin-bottom:18px;
+}
+
+h1 span{
+  color:#ff2020;
+  text-shadow:0 0 28px rgba(255,0,0,.7);
+}
+
+.subtitle{
+  max-width:760px;
+  margin:0 auto 25px;
+  color:#ccc;
+  font-size:18px;
+  line-height:1.7;
+}
+
+.trust{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:25px 0 35px;
+}
+
+.trust span{
+  padding:10px 15px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);
+  border-radius:50px;
+  font-size:13px;
+  color:#ddd;
+}
+
+.section{
+  padding:70px 24px;
+}
+
+.section-title{
+  text-align:center;
+  font-size:38px;
+  margin-bottom:12px;
+}
+
+.section-title span{
+  color:#ff3030;
+}
+
+.section-sub{
+  text-align:center;
+  color:#aaa;
+  max-width:650px;
+  margin:0 auto 40px;
+  line-height:1.6;
+}
+
+.grid{
+  max-width:1180px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:18px;
+}
+
+.card{
+  background:rgba(15,15,15,.8);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:24px;
+  padding:26px;
+  backdrop-filter:blur(14px);
+  box-shadow:0 0 30px rgba(255,0,0,.08);
+  transition:.25s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(255,0,0,.5);
+  box-shadow:0 0 35px rgba(255,0,0,.18);
+}
+
+.card h3{
+  color:#ff3030;
+  margin-bottom:10px;
+  font-size:20px;
+}
+
+.card p{
+  color:#aaa;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.stats{
+  max-width:1180px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:18px;
+}
+
+.stat{
+  background:linear-gradient(180deg,#111,#070707);
+  border:1px solid rgba(255,0,0,.3);
+  border-radius:22px;
+  padding:28px;
+  text-align:center;
+}
+
+.stat h2{
+  color:#ff3030;
+  font-size:36px;
+}
+
+.stat p{
+  color:#aaa;
+  margin-top:8px;
+}
+
+.steps{
+  max-width:950px;
+  margin:auto;
+  display:grid;
+  gap:16px;
+}
+
+.step{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  background:rgba(15,15,15,.82);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:22px;
+  padding:20px;
+}
+
+.step-number{
+  min-width:48px;
+  height:48px;
+  border-radius:50%;
+  background:#ff2020;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+}
+
+.step h3{
+  color:white;
+  margin-bottom:5px;
+}
+
+.step p{
+  color:#aaa;
+  font-size:14px;
+}
+
+.pricing{
+  max-width:900px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:22px;
+}
+
+.price-card{
+  background:linear-gradient(180deg,#111,#070707);
+  border:1px solid rgba(255,0,0,.35);
+  border-radius:26px;
+  padding:35px 25px;
+  position:relative;
+  text-align:center;
+  box-shadow:0 0 35px rgba(255,0,0,.12);
+}
+
+.price-card.popular{
+  border:1px solid rgba(255,0,0,.85);
+  box-shadow:0 0 45px rgba(255,0,0,.28);
+}
+
+.tag{
+  position:absolute;
+  top:-14px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#ff2020;
+  padding:7px 15px;
+  border-radius:50px;
+  font-size:12px;
+  font-weight:900;
+}
+
+.price-card h2{
+  font-size:25px;
+  margin-bottom:15px;
+}
+
+.amount{
+  font-size:44px;
+  color:#ff3030;
+  font-weight:900;
+}
+
+.usd{
+  font-size:25px;
+  font-weight:800;
+  margin-top:5px;
+}
+
+.reviews{
+  max-width:1180px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:18px;
+}
+
+.review{
+  background:rgba(15,15,15,.82);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:22px;
+  padding:24px;
+}
+
+.stars{
+  color:#ff3030;
+  margin-bottom:10px;
+}
+
+.review p{
+  color:#ccc;
+  line-height:1.6;
+}
+
+.review small{
+  display:block;
+  color:#777;
+  margin-top:12px;
+}
+
+.contact-box{
+  max-width:560px;
+  margin:auto;
+  background:rgba(15,15,15,.9);
+  border:1px solid rgba(37,211,102,.4);
+  border-radius:26px;
+  padding:30px;
+  text-align:center;
+  box-shadow:0 0 35px rgba(37,211,102,.12);
+}
+
+.contact-box small{
+  color:#aaa;
+  font-weight:900;
+  letter-spacing:1.5px;
+}
+
+.contact-box h2{
+  color:#25D366;
+  margin:14px 0 18px;
+  font-size:30px;
+}
+
+.btn{
+  display:inline-block;
+  text-decoration:none;
+  background:linear-gradient(135deg,#ff1b1b,#8b0000);
+  color:white;
+  padding:18px 32px;
+  border-radius:18px;
+  font-size:20px;
+  font-weight:900;
+  box-shadow:0 0 35px rgba(255,0,0,.45);
+  transition:.25s;
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 0 45px rgba(255,0,0,.7);
+}
+
+.other-contact{
+  margin-top:25px;
+  padding-top:22px;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+
+.other-contact p{
+  color:#cfcfcf;
+  font-size:15px;
+  margin-bottom:14px;
+}
+
+.email{
+  display:block;
+  color:#25D366;
+  font-size:18px;
+  font-weight:900;
+  text-decoration:none;
+  margin-bottom:14px;
+  word-break:break-word;
+}
+
+.discord{
+  color:#5865F2;
+  font-size:19px;
+  font-weight:900;
+}
+
+.faq{
+  max-width:900px;
+  margin:auto;
+  display:grid;
+  gap:15px;
+}
+
+.faq-item{
+  background:rgba(15,15,15,.82);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:20px;
+  padding:22px;
+}
+
+.faq-item h3{
+  color:#ff3030;
+  margin-bottom:8px;
+}
+
+.faq-item p{
+  color:#aaa;
+  line-height:1.6;
+}
+
+.owner{
+  max-width:720px;
+  margin:auto;
+  text-align:center;
+  background:rgba(15,15,15,.82);
+  border:1px solid rgba(255,0,0,.25);
+  border-radius:26px;
+  padding:32px;
+}
+
+.owner h2{
+  color:#ff3030;
+  margin-bottom:12px;
+}
+
+.owner p{
+  color:#ccc;
+  line-height:1.8;
+}
+
+.warning{
+  max-width:800px;
+  margin:auto;
+  text-align:center;
+  background:rgba(255,0,0,.08);
+  border:1px solid rgba(255,0,0,.3);
+  border-radius:22px;
+  padding:24px;
+  color:#ccc;
+  line-height:1.7;
+}
+
+footer{
+  padding:35px 20px;
+  text-align:center;
+  color:#777;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.floating-wa{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#25D366;
+  color:white;
+  text-decoration:none;
+  padding:15px 18px;
+  border-radius:50px;
+  font-weight:900;
+  box-shadow:0 0 25px rgba(37,211,102,.5);
+  z-index:100;
+}
+
+@media(max-width:760px){
+  .nav-links{
+    display:none;
+  }
+
+  .hero{
+    align-items:flex-start;
+    padding-top:105px;
+  }
+
+  .section-title{
+    font-size:30px;
+  }
+
+  .step{
+    align-items:flex-start;
+  }
+
+  .floating-wa{
+    right:12px;
+    bottom:12px;
+    font-size:14px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="particles"></div>
+
+<nav>
+  <div class="nav-wrap">
+    <div class="logo">ITACHI PANEL</div>
+    <div class="nav-links">
+      
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+
+    <div class="badge">PC ONLY • WINDOWS SUPPORTED</div>
+
+    <h1>
+      ITACHI <br>
+      <span>HEADSHOT PANEL</span>
+    </h1>
+
+    <p class="subtitle">
+      Premium PC-focused setup with fast delivery, clean support, and custom optimization for your device.
+    </p>
+
+    <div class="trust">
+      <span>💻 PC Only</span>
+      <span>⚡ Fast Delivery</span>
+      <span>🎮 Support Included</span>
+      <span>🔒 Secure Contact</span>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="features">
+  <h2 class="section-title">Premium <span>Features</span></h2>
+  <p class="section-sub">Everything is built for a simple, fast, and clean customer experience.</p>
+
+  <div class="grid">
+    <div class="card"><h3>🎯 Headshot Focused</h3><p>Optimized for better aim consistency and smoother gameplay experience.</p></div>
+    <div class="card"><h3>🛡️ Safe & Reliable</h3><p>Clean setup process with support after purchase.</p></div>
+    <div class="card"><h3>💻 PC Only</h3><p>Designed for Windows PC and emulator users.</p></div>
+    <div class="card"><h3>⚡ Fast Delivery</h3><p>Access details are sent quickly after confirmation.</p></div>
+    <div class="card"><h3>🔒 Protection Focused</h3><p>Stability-focused setup with regular improvements.</p></div>
+    
+    <div class="card"><h3>🔁 Regular Updates</h3><p>Updates and support available when needed.</p></div>
+    <div class="card"><h3>🎮 Supported Platforms</h3><p>Windows PC, BlueStacks, LDPlayer, Mumu, and other emulator setups.</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <h2 class="section-title">Site <span>Stats</span></h2>
+  <p class="section-sub">A clean overview of the service.</p>
+
+  <div class="stats">
+    <div class="stat"><h2>500+</h2><p>Users Served</p></div>
+    <div class="stat"><h2>24/7</h2><p>Contact Available</p></div>
+    <div class="stat"><h2>2</h2><p>Simple Plans</p></div>
+    <div class="stat"><h2>PC</h2><p>Windows Focused</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <h2 class="section-title">How It <span>Works</span></h2>
+  <p class="section-sub">Simple process. No stress.</p>
+
+  <div class="steps">
+    <div class="step"><div class="step-number">1</div><div><h3>Choose Package</h3><p>Pick either 1 Month Access or Lifetime Access.</p></div></div>
+    <div class="step"><div class="step-number">2</div><div><h3>Contact Official Account</h3><p>Message through WhatsApp, email, or Discord.</p></div></div>
+    <div class="step"><div class="step-number">3</div><div><h3>Confirm Payment</h3><p>Payment details will be provided through your chosen contact method.</p></div></div>
+    <div class="step"><div class="step-number">4</div><div><h3>Receive Access</h3><p>Your access key and setup instructions will be sent after confirmation.</p></div></div>
+    <div class="step"><div class="step-number">5</div><div><h3>Support Available</h3><p>Support is available if you need help with setup.</p></div></div>
+  </div>
+</section>
+
+<section class="section" id="pricing">
+  <h2 class="section-title">Choose Your <span>Plan</span></h2>
+  <p class="section-sub">Simple pricing. Pick what works best for you.</p>
+
+  <div class="pricing">
+    <div class="price-card">
+      <h2>💎 1 Month Access</h2>
+      <div class="amount">₦15,000</div>
+      <div class="usd">$15</div>
+    </div>
+
+    <div class="price-card popular">
+      <div class="tag">BEST VALUE</div>
+      <h2>👑 Lifetime Access</h2>
+      <div class="amount">₦30,000</div>
+      <div class="usd">$30</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2 class="section-title">Customer <span>Reviews</span></h2>
+ 
+  <div class="reviews">
+    <div class="review"><div class="stars">★★★★★</div><p>"Fast response and clean setup."</p><small>Verified Customer</small></div>
+    <div class="review"><div class="stars">★★★★★</div><p>"Easy process and good support."</p><small>Verified Customer</small></div>
+    <div class="review"><div class="stars">★★★★★</div><p>"Delivery was quick after payment."</p><small>Verified Customer</small></div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <h2 class="section-title">Official <span>Contact</span></h2>
+  <p class="section-sub">Use only the contact methods below to avoid impersonators.</p>
+
+  <div class="contact-box">
+    <small>OFFICIAL WHATSAPP</small>
+
+    <h2>+1 780 246 4833</h2>
+
+    <a class="btn"
+    href="https://api.whatsapp.com/send?phone=17802464833"
+    target="_blank"
+    rel="noopener noreferrer">
+    📲 BUY NOW ON WHATSAPP
+    </a>
+
+    <div class="other-contact">
+      <p>Don't use WhatsApp? Contact me via:</p>
+
+      <a class="email" href="mailto:jackjersey6@gmail.com">
+        📧 jackjersey6@gmail.com
+      </a>
+
+      <div class="discord">
+        🎮 Discord: itachih0i
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <h2 class="section-title">Frequently Asked <span>Questions</span></h2>
+  <p class="section-sub">Quick answers before you contact.</p>
+
+  <div class="faq">
+    <div class="faq-item"><h3>Is it PC only?</h3><p>Yes. This setup is made for Windows PC and emulator users only.</p></div>
+    <div class="faq-item"><h3>How fast is delivery?</h3><p>Delivery is usually fast after payment confirmation and contact verification.</p></div>
+    <div class="faq-item"><h3>How do I receive access?</h3><p>Your access key and instructions are sent through WhatsApp, email, or Discord.</p></div>
+    <div class="faq-item"><h3>Do I get support?</h3><p>Yes. Setup support is available after purchase.</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="owner">
+    <h2>Owner: ITACHI</h2>
+    <p>
+      TikTok: @itachih0i11<br>
+      Discord: itachih0i<br>
+      Email: jackjersey6@gmail.com
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="warning">
+    <strong>Secure Contact Warning:</strong><br>
+    Only contact the official WhatsApp, email, or Discord listed on this website.
+    Do not trust impersonators or random accounts claiming to represent ITACHI Panel.
+  </div>
+</section>
+
+<footer>
+  Last Updated: june 2026<br>
+  © 2026 ITACHI Panel. All rights reserved.
+</footer>
+
+<a class="floating-wa"
+href="https://api.whatsapp.com/send?phone=17802464833"
+target="_blank"
+rel="noopener noreferrer">
+WhatsApp
+</a>
+
+</body>
+</html>
